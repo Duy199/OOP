@@ -35,20 +35,28 @@ public class MonLyThuyet extends MonHoc {
     }
 
     @Override
-    public String toString() {
-        String string = super.toString();
-        return  "MonLyThuyet{" +
-                "maMaHoc=" + this.getMaMonHoc() +
-                ", tuLuan=" + tuLuan +
-                ", diemGiuaKy=" + diemGiuaKy +
-                ", diemCuoiKy=" + diemCuoiKy +
-                '}';
+    public double TinhDiem() {
+        System.out.println("Diem trung binh mon ly thuyet la ");
+        return tuLuan * 0.2 + diemGiuaKy * 0.3 + diemCuoiKy * 0.5;
     }
 
     @Override
-    public double TinhDiem() {
-
-        return tuLuan * 0.2 + diemGiuaKy * 0.3 + diemCuoiKy * 0.5;
+    public String toString() {
+        return super.toString() + "\n" +
+                "diem tu luan la " + tuLuan + "\n" +
+                "diem giua ky la " + diemGiuaKy + "\n" +
+                "diem cuoi ky la " + diemCuoiKy;
     }
+
+    //    @Override
+//    public String toString() {
+//        return  "Ten MonHoc la " + super.getMaMonHoc() + "\n" +
+//                "maMaHoc la " + super.getMaMonHoc() + "\n" +
+//                "so Tin chi la " + super.getSoTinChi() + "\n" +
+//                "Diem tuLuan la " + tuLuan + "\n" +
+//                "Dien giua ky la " + diemGiuaKy + "\n" +
+//                "Diem cuoi ky la " + diemCuoiKy;
+//    }
+
 }
 

@@ -25,7 +25,15 @@ public class MonDoAn extends MonHoc {
     }
 
     @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "diem GVHD la " + diemGVHD + "\n" +
+                "diem GVPB la " + diemGVPB;
+    }
+
+    @Override
     public double TinhDiem() {
+        System.out.println("Diem trung binh mon do an la ");
         return (diemGVHD + diemGVPB) / 2;
     }
 }

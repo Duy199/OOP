@@ -35,11 +35,9 @@ public abstract class MonHoc {
 
     @Override
     public String toString() {
-        return "MonHoc{" +
-                "maMonHoc='" + maMonHoc + '\n' +
-                ", tenMonHoc='" + tenMonHoc + '\n' +
-                ", soTinChi=" + soTinChi +
-                '}';
+        return "Ten MonHoc la " + tenMonHoc + "\n" +
+                "maMaHoc la " + maMonHoc + "\n" +
+                "so Tin chi la " + soTinChi + "\n";
     }
 
     public abstract double TinhDiem();
