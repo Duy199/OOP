@@ -1,13 +1,17 @@
-public abstract class MonHoc {
-    private String maMonHoc;
-    private String tenMonHoc;
-    private int soTinChi;
+import java.util.Scanner;
 
-    public MonHoc(String maMonHoc, String tenMonHoc, int soTinChi) {
-        this.maMonHoc = maMonHoc;
-        this.tenMonHoc = tenMonHoc;
-        this.soTinChi = soTinChi;
+public abstract class MonHoc {
+    String maMonHoc;
+    String tenMonHoc;
+    String soTinChi;
+
+    public MonHoc(String subjectID, String subjectName, String creditNumber) {
+
+        maMonHoc = subjectID;
+        tenMonHoc = subjectName;
+        soTinChi = creditNumber;
     }
+
 
     public String getMaMonHoc() {
         return maMonHoc;
@@ -25,11 +29,11 @@ public abstract class MonHoc {
         this.tenMonHoc = tenMonHoc;
     }
 
-    public int getSoTinChi() {
+    public String getSoTinChi() {
         return soTinChi;
     }
 
-    public void setSoTinChi(int soTinChi) {
+    public void setSoTinChi(String soTinChi) {
         this.soTinChi = soTinChi;
     }
 

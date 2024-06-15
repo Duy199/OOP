@@ -1,15 +1,22 @@
+import java.util.Scanner;
+
 public class MonThucHanh extends MonHoc{
     private double diem1;
     private double diem2;
     private double diem3;
     private double diem4;
 
-    public MonThucHanh(String maMonHoc, String tenMonHoc, int soTinChi, double diem1, double diem2, double diem3, double diem4) {
-        super(maMonHoc, tenMonHoc, soTinChi);
-        this.diem1 = diem1;
-        this.diem2 = diem2;
-        this.diem3 = diem3;
-        this.diem4 = diem4;
+    public MonThucHanh(String subjectID, String subjectName, String creditNumber) {
+        super(subjectID, subjectName, creditNumber);
+        Scanner input = new Scanner(System.in);
+        System.out.println("moi nhap diem 1");
+        this.diem1 = input.nextDouble();
+        System.out.println("moi nhap diem 2");
+        this.diem2 = input.nextDouble();
+        System.out.println("moi nhap diem 3");
+        this.diem3 = input.nextDouble();
+        System.out.println("moi nhap diem 4");
+        this.diem4 = input.nextDouble();
     }
 
     public double getDiem1() {

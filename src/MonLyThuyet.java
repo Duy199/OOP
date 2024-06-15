@@ -1,13 +1,21 @@
+import java.util.Scanner;
+
 public class MonLyThuyet extends MonHoc {
     private double tuLuan;
     private double diemGiuaKy;
     private double diemCuoiKy;
 
-    public MonLyThuyet(String maMonHoc, String tenMonHoc, int soTinChi, double tuLuan, double diemGiuaKy, double diemCuoiKy) {
-        super(maMonHoc, tenMonHoc, soTinChi);
-        this.tuLuan = tuLuan;
-        this.diemGiuaKy = diemGiuaKy;
-        this.diemCuoiKy = diemCuoiKy;
+
+    public MonLyThuyet(String subjectID, String subjectName, String creditNumber) {
+        super(subjectID, subjectName, creditNumber);
+        System.out.println("moi nhap diem mon ly thuyet ");
+        Scanner input = new Scanner(System.in);
+        System.out.println("moi nhap diem tu luan");
+        this.tuLuan = input.nextDouble();
+        System.out.println("moi nhap diem giua ky ");
+        this.diemGiuaKy = input.nextDouble();
+        System.out.println("moi nhap diem cuoi ky ");
+        this.diemCuoiKy = input.nextDouble();
     }
 
     public double getTuLuan() {
@@ -15,6 +23,7 @@ public class MonLyThuyet extends MonHoc {
     }
 
     public void setTuLuan(double tuLuan) {
+        System.out.println("moi nhap diem tu luan ");
         this.tuLuan = tuLuan;
     }
 
@@ -23,6 +32,7 @@ public class MonLyThuyet extends MonHoc {
     }
 
     public void setDiemGiuaKy(double diemGiuaKy) {
+        System.out.println("moi nhap diem giua ky ");
         this.diemGiuaKy = diemGiuaKy;
     }
 
@@ -31,6 +41,7 @@ public class MonLyThuyet extends MonHoc {
     }
 
     public void setDiemCuoiKy(double diemCuoiKy) {
+        System.out.println("moi nhap diem cuoi ky ");
         this.diemCuoiKy = diemCuoiKy;
     }
 
@@ -42,10 +53,13 @@ public class MonLyThuyet extends MonHoc {
 
     @Override
     public String toString() {
-        return super.toString() + "\n" +
-                "diem tu luan la " + tuLuan + "\n" +
-                "diem giua ky la " + diemGiuaKy + "\n" +
-                "diem cuoi ky la " + diemCuoiKy;
+//        return  "Ma mon hoc la " + maMonHoc + "\n" +
+//                "Ten mon hoc la " + tenMonHoc + "\n" +
+//                "so tin chi la " + soTinChi + "\n" +
+          return  super.toString() +
+                  "diem tu luan la " + tuLuan + "\n" +
+                  "diem giua ky la " + diemGiuaKy + "\n" +
+                  "diem cuoi ky la " + diemCuoiKy;
     }
 
     //    @Override
@@ -57,6 +71,7 @@ public class MonLyThuyet extends MonHoc {
 //                "Dien giua ky la " + diemGiuaKy + "\n" +
 //                "Diem cuoi ky la " + diemCuoiKy;
 //    }
+
 
 }
 
