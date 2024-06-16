@@ -21,6 +21,7 @@ public class Main {
         String subjectName = input.next();
         System.out.println("nhap so tin chi ");
         String creditNumber = input.next();
+        //haha
 
         System.out.println("Vui long chon mon theo list ben duoi de xem diem " + "\n" +
                 "1. Ly Thuyet" + "\n" +
