@@ -1,3 +1,5 @@
+package exercise1_29;
+
 public class OfficeEmployee extends Employee{
     private int soNgayLamViec;
     private double troCap;

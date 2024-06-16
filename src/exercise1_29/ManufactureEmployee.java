@@ -1,3 +1,5 @@
+package exercise1_29;
+
 public class ManufactureEmployee extends Employee {
     private int SoSanPham;
 

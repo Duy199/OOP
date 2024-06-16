@@ -1,3 +1,5 @@
+package exercise1_29;
+
 public class ManagerEmployee extends Employee{
     private double Thuong;
     private double HeSoChucVu;

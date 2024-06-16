@@ -1,3 +1,5 @@
+package exercise1_29;
+
 public abstract class Employee {
     private String name;
     private int startDays;

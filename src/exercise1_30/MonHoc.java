@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package exercise1_30;
 
 public abstract class MonHoc {
     String maMonHoc;
@@ -39,7 +39,7 @@ public abstract class MonHoc {
 
     @Override
     public String toString() {
-        return "Ten MonHoc la " + tenMonHoc + "\n" +
+        return "Ten exercise1_30.MonHoc la " + tenMonHoc + "\n" +
                 "maMaHoc la " + maMonHoc + "\n" +
                 "so Tin chi la " + soTinChi + "\n";
     }

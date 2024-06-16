@@ -1,16 +1,20 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import exercise1_30.MonDoAn;
+import exercise1_30.MonHoc;
+import exercise1_30.MonLyThuyet;
+import exercise1_30.MonThucHanh;
 
 import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
         //exercise 1.29
-//       Employee employee1 = new OfficeEmployee("Duy", 5, 20, 300000);
+//       exercise1_29.Employee employee1 = new exercise1_29.OfficeEmployee("Duy", 5, 20, 300000);
 //       System.out.println(employee1.TinhLuong());
-//       Employee employee2 = new ManufactureEmployee("Phat", 2, 21);
+//       exercise1_29.Employee employee2 = new exercise1_29.ManufactureEmployee("Phat", 2, 21);
 //       System.out.println(employee2.TinhLuong());
-//       Employee employee3 = new ManagerEmployee("Quynh", 5, 5000000, 2);
+//       exercise1_29.Employee employee3 = new exercise1_29.ManagerEmployee("Quynh", 5, 5000000, 2);
 //       System.out.println(employee3.TinhLuong());
        //exercise 1.30
         Scanner input = new Scanner(System.in);
@@ -64,6 +68,7 @@ public class Main {
 //            System.out.println(hocSinh2.TinhDiem());
 //            System.out.println(hocSinh3);
 //            System.out.println(hocSinh3.TinhDiem());
+
             
         }
 

@@ -1,3 +1,5 @@
+package exercise1_30;
+
 import java.util.Scanner;
 
 public class MonLyThuyet extends MonHoc {
@@ -64,7 +66,7 @@ public class MonLyThuyet extends MonHoc {
 
     //    @Override
 //    public String toString() {
-//        return  "Ten MonHoc la " + super.getMaMonHoc() + "\n" +
+//        return  "Ten exercise1_30.MonHoc la " + super.getMaMonHoc() + "\n" +
 //                "maMaHoc la " + super.getMaMonHoc() + "\n" +
 //                "so Tin chi la " + super.getSoTinChi() + "\n" +
 //                "Diem tuLuan la " + tuLuan + "\n" +

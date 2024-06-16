@@ -1,3 +1,5 @@
+package exercise1_30;
+
 import java.util.Scanner;
 
 public class MonThucHanh extends MonHoc{
