@@ -64,6 +64,11 @@ public class MonLyThuyet extends MonHoc {
                   "diem cuoi ky la " + diemCuoiKy;
     }
 
+    @Override
+    public void newLine() {
+        System.out.println("\n");
+    }
+
     //    @Override
 //    public String toString() {
 //        return  "Ten exercise1_30.MonHoc la " + super.getMaMonHoc() + "\n" +

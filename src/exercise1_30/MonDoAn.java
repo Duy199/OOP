@@ -44,4 +44,9 @@ public class MonDoAn extends MonHoc {
         System.out.println("Diem trung binh mon do an la ");
         return (diemGVHD + diemGVPB) / 2;
     }
+
+    @Override
+    public void newLine() {
+        System.out.println("\n");
+    }
 }

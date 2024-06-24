@@ -55,16 +55,21 @@ public class MonThucHanh extends MonHoc{
 
     @Override
     public String toString() {
-        return super.toString() + "\n" +
+        return super.toString() +
                 "Diem 1 la " + diem1 + "\n" +
                 "Diem 2 la " + diem2 + "\n" +
                 "Diem 3 la " + diem3 + "\n" +
-                "Diem 4 la " + diem4 + "\n";
+                "Diem 4 la " + diem4;
     }
 
     @Override
     public double TinhDiem() {
         System.out.println("Diem trung binh mon thuc hanh la ");
         return (diem1 + diem2 + diem3 + diem4) / 4;
+    }
+
+    @Override
+    public void newLine() {
+        System.out.println("\n");
     }
 }

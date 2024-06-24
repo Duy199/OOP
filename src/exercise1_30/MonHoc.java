@@ -39,11 +39,11 @@ public abstract class MonHoc {
 
     @Override
     public String toString() {
-        return "Ten exercise1_30.MonHoc la " + tenMonHoc + "\n" +
+        return "Ten mon hoc la " + tenMonHoc + "\n" +
                 "maMaHoc la " + maMonHoc + "\n" +
                 "so Tin chi la " + soTinChi + "\n";
     }
 
     public abstract double TinhDiem();
-
+    public abstract void newLine();
 }
