@@ -109,8 +109,13 @@ public class Test {
                         }
 
                         for (double d : doubles) {
-                            bufferedWriter.write("The salary is "+String.valueOf(d) + " $");
-                            bufferedWriter.write("\n");
+                            if (d==worker.tinhKhenThuong()) {
+                                bufferedWriter.write("The salary after bonus is " + String.valueOf(d) + " S");
+                            }
+                            else {
+                                bufferedWriter.write("The salary is "+String.valueOf(d) + " $");
+                                bufferedWriter.write("\n");
+                            }
                         }
                         bufferedWriter.close();
 
@@ -184,7 +189,7 @@ public class Test {
                             ,"muc luong: " + String.valueOf(worker.getMucLuong())
                             ,"ngayCong: " + String.valueOf(worker.getNgayCong())};
 
-                    double[] doubles = new double[] {worker.tinhLuong(), worker.tinhKhenThuong()};
+                    double[] doubles = new double[] {worker.tinhLuong(),worker.tinhKhenThuong()};
                     try {
                         String path = "C:\\Users\\Admin\\Downloads\\database\\save"+maSo+hoTen+count+".txt";
                         FileOutputStream fileOutputStream = new FileOutputStream(path);
@@ -196,8 +201,13 @@ public class Test {
                         }
 
                         for (double d : doubles) {
-                            bufferedWriter.write("The salary is "+String.valueOf(d) + " $");
-                            bufferedWriter.write("\n");
+                            if (d==worker.tinhKhenThuong()) {
+                                bufferedWriter.write("The salary after bonus is " + String.valueOf(d) + " S");
+                            }
+                            else {
+                                bufferedWriter.write("The salary is "+String.valueOf(d) + " $");
+                                bufferedWriter.write("\n");
+                            }
                         }
                         bufferedWriter.close();
 
