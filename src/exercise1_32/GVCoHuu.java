@@ -46,5 +46,4 @@ public class GVCoHuu extends LDBienChe{
         return super.getHSL() * super.getLCS() * (1+hsThamNien);
     }
 
-
 }
