@@ -12,11 +12,13 @@ public class test extends JFrame {
     private JButton forgotYourPasswordButton;
     public static String userNameRegistered;
     public static String passwordRegisteredConverted;
+
+
     public test(String userNameRegistered, String passwordRegisteredConverted ) {
         setContentPane(panel1);
         setTitle("Salary management");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(400,500);
+        setSize(500,600);
         setLocationRelativeTo(null);
         setVisible(true);
 //        userNameRegistered = new String[1];
