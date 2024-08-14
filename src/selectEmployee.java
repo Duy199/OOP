@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
+
 import exercise1_32.*;
 public class selectEmployee extends JFrame {
     private JComboBox comboBox1;
@@ -128,6 +130,50 @@ public class selectEmployee extends JFrame {
                                     GVCoHuu gvCoHuu = new GVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Double.parseDouble (textField3.getText ()));
                                     textField4.setText (Double.toString (gvCoHuu.tinhLuong ()));
                                     saveDataButton.setVisible (true);
+                                    //Update to database
+                                    saveDataButton.addActionListener (new ActionListener ( ) {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+
+
+                                            try {
+                                                //Connect to database
+                                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+
+                                                //Check similar maSo, hoTen
+                                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM GVCoHuu WHERE maso = ? OR hoten = ?");
+                                                preparedStatement.setString (1,maSo.getText ());
+                                                preparedStatement.setString (2,hoTen.getText ());
+                                                ResultSet resultSet = preparedStatement.executeQuery();
+                                                if (resultSet.next ()) {
+
+                                                    if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
+                                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
+                                                    }
+                                                    if (hoTen.getText ().equals (resultSet.getString (2))) {
+                                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
+                                                    }
+                                                }
+                                                //Update
+                                                else {
+                                                    JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
+                                                    String insertSQL = "INSERT INTO GVCoHuu (maso, hoten, namsinh, hsl, lcs, hsthamnien, luong) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                                                    PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
+                                                    PreparedStatement.setInt (1, Integer.parseInt (maSo.getText ()));
+                                                    PreparedStatement.setString(2, hoTen.getText ());
+                                                    PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
+                                                    PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
+                                                    PreparedStatement.setDouble (5, Double.parseDouble (textField2.getText ()));
+                                                    PreparedStatement.setDouble (6, Double.parseDouble (textField3.getText ()));
+                                                    PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
+                                                    PreparedStatement.executeUpdate();
+                                                }
+                                            }
+                                            catch (SQLException E) {
+                                                throw new RuntimeException (E);
+                                            }
+                                        }
+                                    });
                                 }
                             }
                         }
