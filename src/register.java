@@ -65,7 +65,7 @@ public class register extends JFrame {
                                 //Import to database
                                 JOptionPane.showMessageDialog (register.this,"Registered successfully");
                                 JOptionPane.showMessageDialog (register.this,"Your account has been stored in our database");
-                                new test (textField1.getText (),passwordField2.getText ());
+                                new test ();
                                 nationalID = textField4.getText ();
 
                                 String insertSQL = "INSERT INTO UserAccount (NationalID, UserName, Password) VALUES (?, ?, ?)";
@@ -87,7 +87,7 @@ public class register extends JFrame {
         alreadyHaveAccoutButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new test (test.userNameRegistered,test.passwordRegisteredConverted);
+                new test ();
             }
         });
     }

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a0d53c10-849f-492e-8f8c-97e3c32be5ec" name="Changes" comment="Build my login Gui connecting to my database">
+    <list default="true" id="a0d53c10-849f-492e-8f8c-97e3c32be5ec" name="Changes" comment="Build my login Gui connecting to my database better">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/register.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/register.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/register.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/selectEmployee.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/selectEmployee.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/selectEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/selectEmployee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tes2.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/tes2.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tes2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tes2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.java" afterDir="false" />
     </list>
@@ -158,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720098858507</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Build my login Gui connecting to my database better">
+      <option name="closed" value="true" />
+      <created>1720175190563</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1720175190563</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -170,6 +177,7 @@
     <MESSAGE value="Exercise 1.32 - added a storage feature by converting the user's input into text file for local storage." />
     <MESSAGE value="Exercise 1.32 - fix bugs for the local storage feature" />
     <MESSAGE value="Build my login Gui connecting to my database" />
-    <option name="LAST_COMMIT_MESSAGE" value="Build my login Gui connecting to my database" />
+    <MESSAGE value="Build my login Gui connecting to my database better" />
+    <option name="LAST_COMMIT_MESSAGE" value="Build my login Gui connecting to my database better" />
   </component>
 </project>

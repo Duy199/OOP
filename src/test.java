@@ -10,11 +10,8 @@ public class test extends JFrame {
     private JButton registerButton;
     private JPasswordField passwordField1;
     private JButton forgotYourPasswordButton;
-    public static String userNameRegistered;
-    public static String passwordRegisteredConverted;
 
-
-    public test(String userNameRegistered, String passwordRegisteredConverted ) {
+    public test() {
         setContentPane(panel1);
         setTitle("Salary management");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,8 +20,6 @@ public class test extends JFrame {
         setVisible(true);
 //        userNameRegistered = new String[1];
 //        passwordRegisteredConverted = new String[1];
-        test.passwordRegisteredConverted = passwordRegisteredConverted;
-        test.userNameRegistered = userNameRegistered;
         registerButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,7 +32,6 @@ public class test extends JFrame {
         logInButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
-//
                 try {
                     //Connect to database
                     Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
@@ -47,7 +41,6 @@ public class test extends JFrame {
                     preparedStatement.setString (2,passwordField1.getText ());
                     ResultSet resultSet = preparedStatement.executeQuery();
                     if (resultSet.next ()) {
-
                         JOptionPane.showMessageDialog (test.this,"Username and password existed at out database");
                         JOptionPane.showMessageDialog (test.this,"LogIn successfully");
                         new selectEmployee ();
@@ -58,17 +51,17 @@ public class test extends JFrame {
                         textField1.setText (null);
                         passwordField1.setText (null);
                     }
-
                 }
                 catch (SQLException E) {
                     throw new RuntimeException (E);
                 }
             }
         });
+
+
         forgotYourPasswordButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
-//
                 new tes2 ();
             }
         });
@@ -76,7 +69,7 @@ public class test extends JFrame {
     }
 
     public static void main(String[] args) {
-        new test(test.userNameRegistered,test.passwordRegisteredConverted);
+        new test();
 
     }
 }

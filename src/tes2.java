@@ -42,18 +42,22 @@ public class tes2 extends JFrame {
                             preparedStatement.setString (1,textField1.getText ());
                             ResultSet resultSet = preparedStatement.executeQuery();
                             if (resultSet.next ()) {
+                                //Password can not be the same with username
+                                if (resultSet.getString (2).equals (passwordField1.getText ())) {
+                                    JOptionPane.showMessageDialog (tes2.this,"new password cannot be the same with user name: " + resultSet.getString (2));
+                                }
                                 //Alter new password in database
-                                PreparedStatement preparedStatement1 = connection.prepareStatement ("UPDATE UserAccount SET Password = ? WHERE username = ?");
-                                preparedStatement1.setString (1,passwordField1.getText ());
-                                preparedStatement1.setString (2,textField1.getText ());
-                                preparedStatement1.executeUpdate ();
-                                JOptionPane.showMessageDialog (tes2.this,"new password created for username: " + resultSet.getString (2));
-                                new test (null,null);
+                                else {
+                                    PreparedStatement preparedStatement1 = connection.prepareStatement ("UPDATE UserAccount SET Password = ? WHERE username = ?");
+                                    preparedStatement1.setString (1,passwordField1.getText ());
+                                    preparedStatement1.setString (2,textField1.getText ());
+                                    preparedStatement1.executeUpdate ();
+                                    JOptionPane.showMessageDialog (tes2.this,"new password created for username: " + resultSet.getString (2));
+                                    new test();
+                                }
                             }
                             else {
-
                                 JOptionPane.showMessageDialog (tes2.this,"cannot find your username at our database");
-
                             }
 
                         }
@@ -63,30 +67,38 @@ public class tes2 extends JFrame {
                     }
                     else {
                         try {
-                            //Connect to database
-                            Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
-                            //check similar username and password
-                            PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM UserAccount WHERE NationalID = ?");
-                            preparedStatement.setInt (1, Integer.parseInt (textField1.getText ()));
-                            ResultSet resultSet = preparedStatement.executeQuery();
-                            if (resultSet.next ()) {
-                                //Alter new password in database
-                                PreparedStatement preparedStatement1 = connection.prepareStatement ("UPDATE UserAccount SET Password = ? WHERE NationalID = ?");
-                                preparedStatement1.setString (1,passwordField1.getText ());
-                                preparedStatement1.setInt (2, Integer.parseInt (textField1.getText ()));
-                                preparedStatement1.executeUpdate ();
-                                JOptionPane.showMessageDialog (tes2.this,"new password created for username: " + resultSet.getString (2));
-                                new test (null,null);
+                            if(!textField1.getText ().matches ("-?\\d+")) {
+                                JOptionPane.showMessageDialog (tes2.this,"the ID must be in number");
                             }
                             else {
-
-                                JOptionPane.showMessageDialog (tes2.this,"cannot find your nationalID at our database");
-
+                                //Connect to database
+                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+                                //check similar username and password
+                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM UserAccount WHERE NationalID = ?");
+                                preparedStatement.setInt (1, Integer.parseInt (textField1.getText ()));
+                                ResultSet resultSet = preparedStatement.executeQuery();
+                                if (resultSet.next ()) {
+                                    //Password can not be the same with username
+                                    if (resultSet.getString (2).equals (passwordField1.getText ())) {
+                                        JOptionPane.showMessageDialog (tes2.this,"new password cannot be the same with user name: " + resultSet.getString (2));
+                                    }
+                                    //Alter new password in database
+                                    else {
+                                        PreparedStatement preparedStatement1 = connection.prepareStatement ("UPDATE UserAccount SET Password = ? WHERE NationalID = ?");
+                                        preparedStatement1.setString (1,passwordField1.getText ());
+                                        preparedStatement1.setInt (2, Integer.parseInt (textField1.getText ()));
+                                        preparedStatement1.executeUpdate ();
+                                        JOptionPane.showMessageDialog (tes2.this,"new password created for username: " + resultSet.getString (2));
+                                        new test ();
+                                    }
+                                }
+                                else {
+                                    JOptionPane.showMessageDialog (tes2.this,"cannot find your nationalID at our database");
+                                }
                             }
-
                         }
                         catch (SQLException E) {
-                            throw new RuntimeException (E);
+                            E.getSQLState ();
                         }
                     }
 
@@ -103,7 +115,7 @@ public class tes2 extends JFrame {
         alreadyHaveAccountButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new test (test.userNameRegistered,test.passwordRegisteredConverted);
+                new test ();
             }
         });
     }
