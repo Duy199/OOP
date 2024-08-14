@@ -115,10 +115,20 @@ public class selectEmployee extends JFrame {
                                 JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
                             }
                             else {
-
-                                GVCoHuu gvCoHuu = new GVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Double.parseDouble (textField3.getText ()));
-                                textField4.setText (Double.toString (gvCoHuu.tinhLuong ()));
-                                saveDataButton.setVisible (true);
+                                if (!maSo.getText ().matches ("-?\\d+")) {
+                                    JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
+                                }
+                                else if (hoTen.getText ().matches ("-?\\d+")) {
+                                    JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording");
+                                }
+                                else if (!namSinh.getText ().matches ("-?\\d+")) {
+                                    JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering");
+                                }
+                                else {
+                                    GVCoHuu gvCoHuu = new GVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Double.parseDouble (textField3.getText ()));
+                                    textField4.setText (Double.toString (gvCoHuu.tinhLuong ()));
+                                    saveDataButton.setVisible (true);
+                                }
                             }
                         }
                     });
