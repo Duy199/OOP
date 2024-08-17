@@ -46,11 +46,11 @@ public class NVCoHuu extends LDBienChe implements XetKhenThuong{
     @Override
     public double tinhKhenThuong() {
         if (soGioLamThem >= 40) {
-            System.out.println("\n" + "co thuong");
+            System.out.println("\n" + "co thuong NVCoHuu");
             return tinhLuong() + 1000000;
         }
         else {
-            System.out.println("\n" + "Ko co thuong");
+            System.out.println("\n" + "Ko co thuong NVCoHuu");
             return tinhLuong();
         }
     }

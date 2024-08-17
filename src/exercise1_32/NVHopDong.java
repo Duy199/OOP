@@ -45,11 +45,11 @@ public class NVHopDong extends LDNgoaiBienChe implements XetKhenThuong {
     @Override
     public double tinhKhenThuong() {
         if (ngayCong >= 25) {
-            System.out.println("\n" + "co thuong");
+            System.out.println("\n" + "co thuong NVHopDong");
             return tinhLuong() + 1500000;
         }
         else {
-            System.out.println("\n" + "Ko co thuong");
+            System.out.println("\n" + "Ko co thuong NVHopDong");
             return tinhLuong();
         }
     }
