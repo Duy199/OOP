@@ -1,10 +1,9 @@
 import javax.swing.*;
-import javax.swing.text.Highlighter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-
 import exercise1_32.*;
+
 public class selectEmployee extends JFrame {
     private JComboBox comboBox1;
     private JPanel panel1;
@@ -29,6 +28,7 @@ public class selectEmployee extends JFrame {
     private JLabel label5;
     private JLabel foundID;
     private JLabel foundName;
+    private JButton exportToExcelButton;
 
 
     public selectEmployee() {
@@ -130,117 +130,8 @@ public class selectEmployee extends JFrame {
                     saveDataButton.setVisible (false);
 
                     //Tinh luong
-                    clickToCalculateButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (1))) {
-                                if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
 
-                                    JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
-                                }
-                                else {
-                                    if (!maSo.getText ().matches ("-?\\d+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
-                                    }
-                                    else if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
-                                    }
-                                    else if (!namSinh.getText ().matches ("\\d{4}")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
-                                    }
-                                    else {
-                                        GVCoHuu gvCoHuu = new GVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Double.parseDouble (textField3.getText ()));
-                                        textField4.setText (Double.toString (gvCoHuu.tinhLuong ()));
-                                        saveDataButton.setVisible (true);
 
-                                    }
-                                }
-                            }
-
-                        }
-                    });
-                    saveDataButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            foundID.setVisible (false);
-                            foundName.setVisible (false);
-                            try {
-
-                                //Connect to database
-                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
-
-                                //Check similar maSo, hoTen
-                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM GVCoHuu WHERE maso = ? OR hoten = ?");
-                                preparedStatement.setString (1,maSo.getText ());
-                                preparedStatement.setString (2,hoTen.getText ());
-                                ResultSet resultSet = preparedStatement.executeQuery();
-                                if (resultSet.next ()) {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
-                                    if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
-                                        foundID.setVisible (true);
-                                        foundID.setText ("The ID already existed, please type another");
-
-                                    }
-                                    if (hoTen.getText ().equals (resultSet.getString (2))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
-                                        foundName.setVisible (true);
-                                        foundName.setText ("The full name already existed, please type another");
-                                    }
-                                }
-                                //Update
-                                else {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
-                                    String insertSQL = "INSERT INTO GVCoHuu (maso, hoten, namsinh, hsl, lcs, hsthamnien, luong) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                                    PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
-                                    PreparedStatement.setString (1, maSo.getText ());
-                                    PreparedStatement.setString(2, hoTen.getText ());
-                                    PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
-                                    PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
-                                    PreparedStatement.setDouble (5, Double.parseDouble (textField2.getText ()));
-                                    PreparedStatement.setDouble (6, Double.parseDouble (textField3.getText ()));
-                                    PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
-                                    PreparedStatement.executeUpdate();
-                                    //reset to default page
-                                    comboBox1.setSelectedIndex (0);
-                                    namSinhLabel.setVisible (false);
-                                    maSoLabel.setVisible (false);
-                                    hoTenLabel.setVisible (false);
-                                    label1.setVisible (false);
-                                    label2.setVisible (false);
-                                    label3.setVisible (false);
-                                    label4.setVisible (false);
-                                    label5.setVisible (false);
-                                    maSo.setVisible (false);
-                                    hoTen.setVisible (false);
-                                    namSinh.setVisible (false);
-                                    textField1.setVisible (false);
-                                    textField2.setVisible (false);
-                                    textField3.setVisible (false);
-                                    textField4.setVisible (false);
-                                    textField4.setEditable (false);
-                                    textField5.setVisible (false);
-                                    textField5.setEditable (false);
-                                    saveDataButton.setVisible (false);
-                                    clickToCalculateButton.setVisible (false);
-                                    foundName.setVisible (false);
-                                    foundID.setVisible (false);
-                                    //reset all value to zero
-                                    maSo.setText (null);
-                                    hoTen.setText (null);
-                                    namSinh.setText (null);
-                                    textField1.setText (null);
-                                    textField2.setText (null);
-                                    textField3.setText (null);
-                                    textField4.setText (null);
-                                    textField5.setText (null);
-                                }
-                            }
-                            catch (SQLException E) {
-                                throw new RuntimeException (E);
-                            }
-                        }
-                    });
 
                 // 2. nhan vien co huu
                 }
@@ -283,119 +174,7 @@ public class selectEmployee extends JFrame {
                     saveDataButton.setVisible (false);
 
                     //Tinh luong
-                    clickToCalculateButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (2))) {
-                                if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
 
-                                    JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
-                                }
-                                else {
-                                    if (!maSo.getText ().matches ("-?\\d+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
-                                    }
-                                    else if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
-                                    }
-                                    else if (!namSinh.getText ().matches ("\\d{4}")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
-                                    }
-                                    else {
-                                        NVCoHuu nvCoHuu = new NVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Integer.parseInt (textField3.getText ()));
-                                        textField4.setText (Double.toString (nvCoHuu.tinhLuong ()));
-                                        textField5.setText (Double.toString (nvCoHuu.tinhKhenThuong ()));
-                                        saveDataButton.setVisible (true);
-
-                                    }
-                                }
-                            }
-
-                        }
-                    });
-                    saveDataButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            foundID.setVisible (false);
-                            foundName.setVisible (false);
-                            try {
-
-                                //Connect to database
-                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
-
-                                //Check similar maSo, hoTen
-                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM NVCoHuu WHERE maso = ? OR hoten = ?");
-                                preparedStatement.setString (1,maSo.getText ());
-                                preparedStatement.setString (2,hoTen.getText ());
-                                ResultSet resultSet = preparedStatement.executeQuery();
-                                if (resultSet.next ()) {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
-                                    if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
-                                        foundID.setVisible (true);
-                                        foundID.setText ("The ID already existed, please type another");
-
-                                    }
-                                    if (hoTen.getText ().equals (resultSet.getString (2))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
-                                        foundName.setVisible (true);
-                                        foundName.setText ("The full name already existed, please type another");
-                                    }
-                                }
-                                //Update
-                                else {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
-                                    String insertSQL = "INSERT INTO NVCoHuu (maso, hoten, namsinh, hsl, lcs, giolamthem, luong, khenthuong) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                                    PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
-                                    PreparedStatement.setString (1, maSo.getText ());
-                                    PreparedStatement.setString(2, hoTen.getText ());
-                                    PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
-                                    PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
-                                    PreparedStatement.setDouble (5, Double.parseDouble (textField2.getText ()));
-                                    PreparedStatement.setDouble (6, Double.parseDouble (textField3.getText ()));
-                                    PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
-                                    PreparedStatement.setDouble (8, Double.parseDouble (textField5.getText ()));
-                                    PreparedStatement.executeUpdate();
-                                    //reset to default page
-                                    comboBox1.setSelectedIndex (0);
-                                    namSinhLabel.setVisible (false);
-                                    maSoLabel.setVisible (false);
-                                    hoTenLabel.setVisible (false);
-                                    label1.setVisible (false);
-                                    label2.setVisible (false);
-                                    label3.setVisible (false);
-                                    label4.setVisible (false);
-                                    label5.setVisible (false);
-                                    maSo.setVisible (false);
-                                    hoTen.setVisible (false);
-                                    namSinh.setVisible (false);
-                                    textField1.setVisible (false);
-                                    textField2.setVisible (false);
-                                    textField3.setVisible (false);
-                                    textField4.setVisible (false);
-                                    textField4.setEditable (false);
-                                    textField5.setVisible (false);
-                                    textField5.setEditable (false);
-                                    saveDataButton.setVisible (false);
-                                    clickToCalculateButton.setVisible (false);
-                                    foundName.setVisible (false);
-                                    foundID.setVisible (false);
-                                    //reset all value to zero
-                                    maSo.setText (null);
-                                    hoTen.setText (null);
-                                    namSinh.setText (null);
-                                    textField1.setText (null);
-                                    textField2.setText (null);
-                                    textField3.setText (null);
-                                    textField4.setText (null);
-                                    textField5.setText (null);
-                                }
-                            }
-                            catch (SQLException E) {
-                                throw new RuntimeException (E);
-                            }
-                        }
-                    });
                 }
                 //3. Giao vien thinh giang
                 else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (3))) {
@@ -437,116 +216,8 @@ public class selectEmployee extends JFrame {
                     saveDataButton.setVisible (false);
 
                     //Tinh luong
-                    clickToCalculateButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (3))) {
-                                if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
 
-                                    JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
-                                }
-                                else {
-                                    if (!maSo.getText ().matches ("-?\\d+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
-                                    }
-                                    else if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
-                                    }
-                                    else if (!namSinh.getText ().matches ("\\d{4}")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
-                                    }
-                                    else {
-                                        GVThinhGiang gvThinhGiang = new GVThinhGiang (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Integer.parseInt (textField2.getText ()),textField3.getText ());
-                                        textField4.setText (Double.toString (gvThinhGiang.tinhLuong ()));
-                                        saveDataButton.setVisible (true);
-                                    }
-                                }
-                            }
 
-                        }
-                    });
-                    saveDataButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            foundID.setVisible (false);
-                            foundName.setVisible (false);
-                            try {
-
-                                //Connect to database
-                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
-
-                                //Check similar maSo, hoTen
-                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM GVThinhGiang WHERE maso = ? OR hoten = ?");
-                                preparedStatement.setString (1,maSo.getText ());
-                                preparedStatement.setString (2,hoTen.getText ());
-                                ResultSet resultSet = preparedStatement.executeQuery();
-                                if (resultSet.next ()) {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
-                                    if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
-                                        foundID.setVisible (true);
-                                        foundID.setText ("The ID already existed, please type another");
-
-                                    }
-                                    if (hoTen.getText ().equals (resultSet.getString (2))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
-                                        foundName.setVisible (true);
-                                        foundName.setText ("The full name already existed, please type another");
-                                    }
-                                }
-                                //Update
-                                else {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
-                                    String insertSQL = "INSERT INTO GVThinhGiang (maso, hoten, namsinh, mucluong, sotietgd, trinhdo, luong) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                                    PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
-                                    PreparedStatement.setString (1, maSo.getText ());
-                                    PreparedStatement.setString(2, hoTen.getText ());
-                                    PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
-                                    PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
-                                    PreparedStatement.setInt (5, Integer.parseInt (textField2.getText ()));
-                                    PreparedStatement.setString (6, textField3.getText ());
-                                    PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
-                                    PreparedStatement.executeUpdate();
-                                    //reset to default page
-                                    comboBox1.setSelectedIndex (0);
-                                    namSinhLabel.setVisible (false);
-                                    maSoLabel.setVisible (false);
-                                    hoTenLabel.setVisible (false);
-                                    label1.setVisible (false);
-                                    label2.setVisible (false);
-                                    label3.setVisible (false);
-                                    label4.setVisible (false);
-                                    label5.setVisible (false);
-                                    maSo.setVisible (false);
-                                    hoTen.setVisible (false);
-                                    namSinh.setVisible (false);
-                                    textField1.setVisible (false);
-                                    textField2.setVisible (false);
-                                    textField3.setVisible (false);
-                                    textField4.setVisible (false);
-                                    textField4.setEditable (false);
-                                    textField5.setVisible (false);
-                                    textField5.setVisible (false);
-                                    saveDataButton.setVisible (false);
-                                    clickToCalculateButton.setVisible (false);
-                                    foundName.setVisible (false);
-                                    foundID.setVisible (false);
-                                    //reset all value to zero
-                                    maSo.setText (null);
-                                    hoTen.setText (null);
-                                    namSinh.setText (null);
-                                    textField1.setText (null);
-                                    textField2.setText (null);
-                                    textField3.setText (null);
-                                    textField4.setText (null);
-                                    textField5.setText (null);
-                                }
-                            }
-                            catch (SQLException E) {
-                                throw new RuntimeException (E);
-                            }
-                        }
-                    });
                 }
                 //4. nhan vien hop dong
                 else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (4))){
@@ -587,116 +258,502 @@ public class selectEmployee extends JFrame {
                     clickToCalculateButton.setVisible (true);
                     saveDataButton.setVisible (false);
 
-                    //Tinh luong
-                    clickToCalculateButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (4))) {
-                                if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()) {
 
-                                    JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
-                                }
-                                else {
-                                    if (!maSo.getText ().matches ("-?\\d+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
-                                    }
-                                    else if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
-                                    }
-                                    else if (!namSinh.getText ().matches ("\\d{4}")) {
-                                        JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
-                                    }
-                                    else {
-                                        NVHopDong nvHopDong = new NVHopDong (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Integer.parseInt (textField2.getText ()));
-                                        textField4.setText (Double.toString (nvHopDong.tinhLuong ()));
-                                        textField5.setText (Double.toString (nvHopDong.tinhKhenThuong ()));
-                                        saveDataButton.setVisible (true);
-                                    }
-                                }
+                }
+            }
+        });
+        clickToCalculateButton.addActionListener (new ActionListener ( ) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //1. giao vien co huu
+                if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (1))) {
+                    if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
+                        JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
+                        saveDataButton.setVisible (false);
+                    }
+                    else {
+                        if (!maSo.getText ().matches ("-?\\d+")|!hoTen.getText ().matches ("[a-zA-Z\\s]+")||!namSinh.getText ().matches ("\\d{4}")) {
+                            if (!maSo.getText ().matches ("-?\\d+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
+                                saveDataButton.setVisible (false);
                             }
+                            if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!namSinh.getText ().matches ("\\d{4}")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
+                                saveDataButton.setVisible (false);
+                            }
+                        }
+                        else {
+                            GVCoHuu gvCoHuu = new GVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Double.parseDouble (textField3.getText ()));
+                            textField4.setText (Double.toString (gvCoHuu.tinhLuong ()));
+                            saveDataButton.setVisible (true);
 
                         }
-                    });
-                    saveDataButton.addActionListener (new ActionListener ( ) {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            foundID.setVisible (false);
-                            foundName.setVisible (false);
-                            try {
+                    }
+                }
+                //2. nhan vien co huu
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (2))) {
+                    if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
+                        JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
+                        saveDataButton.setVisible (false);
+                    }
+                    else {
+                        if (!maSo.getText ().matches ("-?\\d+")|!hoTen.getText ().matches ("[a-zA-Z\\s]+")||!namSinh.getText ().matches ("\\d{4}")) {
+                            if (!maSo.getText ().matches ("-?\\d+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!namSinh.getText ().matches ("\\d{4}")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
+                                saveDataButton.setVisible (false);
+                            }
+                        }
+                        else {
+                            NVCoHuu nvCoHuu = new NVCoHuu (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Double.parseDouble (textField2.getText ()),Integer.parseInt (textField3.getText ()));
+                            textField4.setText (Double.toString (nvCoHuu.tinhLuong ()));
+                            textField5.setText (Double.toString (nvCoHuu.tinhKhenThuong ()));
+                            saveDataButton.setVisible (true);
 
-                                //Connect to database
-                                Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+                        }
+                    }
+                }
+                //3. giao vien thinh giang
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (3))) {
+                    if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()||textField3.getText ().isEmpty ()) {
+                        JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
+                        saveDataButton.setVisible (false);
+                    }
+                    else {
+                        if (!maSo.getText ().matches ("-?\\d+")|!hoTen.getText ().matches ("[a-zA-Z\\s]+")||!namSinh.getText ().matches ("\\d{4}")) {
+                            if (!maSo.getText ().matches ("-?\\d+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!namSinh.getText ().matches ("\\d{4}")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
+                                saveDataButton.setVisible (false);
+                            }
+                        }
+                        else {
+                            GVThinhGiang gvThinhGiang = new GVThinhGiang (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Integer.parseInt (textField2.getText ()),textField3.getText ());
+                            textField4.setText (Double.toString (gvThinhGiang.tinhLuong ()));
+                            saveDataButton.setVisible (true);
+                        }
+                    }
+                }
+                //4. nhan vien hop dong
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (4))) {
+                    if (maSo.getText ().isEmpty ()||hoTen.getText ().isEmpty ()||namSinh.getText ().isEmpty ()||textField1.getText ().isEmpty ()||textField2.getText ().isEmpty ()) {
+                        JOptionPane.showMessageDialog (selectEmployee.this, "Cannot calculate because of missing information");
+                        saveDataButton.setVisible (false);
+                    }
+                    else {
+                        if (!maSo.getText ().matches ("-?\\d+")|!hoTen.getText ().matches ("[a-zA-Z\\s]+")||!namSinh.getText ().matches ("\\d{4}")) {
+                            if (!maSo.getText ().matches ("-?\\d+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"ma so must be numbering");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!hoTen.getText ().matches ("[a-zA-Z\\s]+")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Ho ten must be wording and spacing");
+                                saveDataButton.setVisible (false);
+                            }
+                            if (!namSinh.getText ().matches ("\\d{4}")) {
+                                JOptionPane.showMessageDialog (selectEmployee.this,"Nam sinh must be numbering with 4 digits");
+                                saveDataButton.setVisible (false);
+                            }
+                        }
+                        else {
+                            NVHopDong nvHopDong = new NVHopDong (maSo.getText (),hoTen.getText (),Integer.parseInt (namSinh.getText ()),Double.parseDouble (textField1.getText ()),Integer.parseInt (textField2.getText ()));
+                            textField4.setText (Double.toString (nvHopDong.tinhLuong ()));
+                            textField5.setText (Double.toString (nvHopDong.tinhKhenThuong ()));
+                            saveDataButton.setVisible (true);
+                        }
+                    }
+                }
+            }
+        });
+        saveDataButton.addActionListener (new ActionListener ( ) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //1. giao vien co huu
+                if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (1))) {
+                    foundID.setVisible (false);
+                    foundName.setVisible (false);
+                    try {
 
-                                //Check similar maSo, hoTen
-                                PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM NVHopDong WHERE maso = ? OR hoten = ?");
-                                preparedStatement.setString (1,maSo.getText ());
-                                preparedStatement.setString (2,hoTen.getText ());
-                                ResultSet resultSet = preparedStatement.executeQuery();
-                                if (resultSet.next ()) {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
-                                    if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
+                        //Connect to database
+                        Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+
+                        //Check similar maSo, hoTen
+                        PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM fullstaff WHERE maso = ? OR hoten = ?");
+                        preparedStatement.setString (1,maSo.getText ());
+                        preparedStatement.setString (2,hoTen.getText ());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next ()) {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
+                            if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
 //                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
-                                        foundID.setVisible (true);
-                                        foundID.setText ("The ID already existed, please type another");
+                                foundID.setVisible (true);
+                                foundID.setText ("The ID already existed, please type another");
 
-                                    }
-                                    if (hoTen.getText ().equals (resultSet.getString (2))) {
-//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
-                                        foundName.setVisible (true);
-                                        foundName.setText ("The full name already existed, please type another");
-                                    }
-                                }
-                                //Update
-                                else {
-                                    JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
-                                    String insertSQL = "INSERT INTO NVHopDong (maso, hoten, namsinh, mucluong, ngaycong, luong, khenthuong) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                                    PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
-                                    PreparedStatement.setString (1, maSo.getText ());
-                                    PreparedStatement.setString(2, hoTen.getText ());
-                                    PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
-                                    PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
-                                    PreparedStatement.setInt (5, Integer.parseInt (textField2.getText ()));
-                                    PreparedStatement.setDouble (6, Double.parseDouble (textField4.getText ()));
-                                    PreparedStatement.setDouble (7, Double.parseDouble (textField5.getText ()));
-                                    PreparedStatement.executeUpdate();
-                                    //reset to default page
-                                    comboBox1.setSelectedIndex (0);
-                                    namSinhLabel.setVisible (false);
-                                    maSoLabel.setVisible (false);
-                                    hoTenLabel.setVisible (false);
-                                    label1.setVisible (false);
-                                    label2.setVisible (false);
-                                    label3.setVisible (false);
-                                    label4.setVisible (false);
-                                    label5.setVisible (false);
-                                    maSo.setVisible (false);
-                                    hoTen.setVisible (false);
-                                    namSinh.setVisible (false);
-                                    textField1.setVisible (false);
-                                    textField2.setVisible (false);
-                                    textField3.setVisible (false);
-                                    textField4.setVisible (false);
-                                    textField5.setVisible (false);
-                                    saveDataButton.setVisible (false);
-                                    clickToCalculateButton.setVisible (false);
-                                    foundName.setVisible (false);
-                                    foundID.setVisible (false);
-                                    //reset all value to zero
-                                    maSo.setText (null);
-                                    hoTen.setText (null);
-                                    namSinh.setText (null);
-                                    textField1.setText (null);
-                                    textField2.setText (null);
-                                    textField3.setText (null);
-                                    textField4.setText (null);
-                                    textField5.setText (null);
-                                }
                             }
-                            catch (SQLException E) {
-                                throw new RuntimeException (E);
+                            if (hoTen.getText ().equals (resultSet.getString (2))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
+                                foundName.setVisible (true);
+                                foundName.setText ("The full name already existed, please type another");
                             }
                         }
-                    });
+                        //Update
+                        else {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
+                            String insertSQL = "INSERT INTO GVCoHuu (maso, hoten, namsinh, hsl, lcs, hsthamnien, luong, vitri) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
+                            PreparedStatement.setString (1, maSo.getText ());
+                            PreparedStatement.setString(2, hoTen.getText ());
+                            PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
+                            PreparedStatement.setDouble (5, Double.parseDouble (textField2.getText ()));
+                            PreparedStatement.setDouble (6, Double.parseDouble (textField3.getText ()));
+                            PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement.setString (8, comboBox1.getItemAt (1).toString ( ));
+                            PreparedStatement.executeUpdate();
+                            String joinTableSQL = "INSERT INTO FullStaff (maso, hoten, namsinh, viTri, thuong) VALUES (?, ?, ?, ?, ?)";
+                            PreparedStatement PreparedStatement1 = connection.prepareStatement (joinTableSQL);
+                            PreparedStatement1.setString (1, maSo.getText ());
+                            PreparedStatement1.setString(2, hoTen.getText ());
+                            PreparedStatement1.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement1.setString (4, comboBox1.getItemAt (1).toString ( ));
+                            PreparedStatement1.setDouble (5, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement1.executeUpdate ();
+                            //reset to default page
+                            comboBox1.setSelectedIndex (0);
+                            namSinhLabel.setVisible (false);
+                            maSoLabel.setVisible (false);
+                            hoTenLabel.setVisible (false);
+                            label1.setVisible (false);
+                            label2.setVisible (false);
+                            label3.setVisible (false);
+                            label4.setVisible (false);
+                            label5.setVisible (false);
+                            maSo.setVisible (false);
+                            hoTen.setVisible (false);
+                            namSinh.setVisible (false);
+                            textField1.setVisible (false);
+                            textField2.setVisible (false);
+                            textField3.setVisible (false);
+                            textField4.setVisible (false);
+                            textField4.setEditable (false);
+                            textField5.setVisible (false);
+                            textField5.setEditable (false);
+                            saveDataButton.setVisible (false);
+                            clickToCalculateButton.setVisible (false);
+                            foundName.setVisible (false);
+                            foundID.setVisible (false);
+                            //reset all value to zero
+                            maSo.setText (null);
+                            hoTen.setText (null);
+                            namSinh.setText (null);
+                            textField1.setText (null);
+                            textField2.setText (null);
+                            textField3.setText (null);
+                            textField4.setText (null);
+                            textField5.setText (null);
+                        }
+                    }
+                    catch (SQLException E) {
+                        throw new RuntimeException (E);
+                    }
+
+                }
+                //2. nhan vien co huuu
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (2))) {
+                    foundID.setVisible (false);
+                    foundName.setVisible (false);
+                    try {
+
+                        //Connect to database
+                        Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+
+                        //Check similar maSo, hoTen
+                        PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM fullstaff WHERE maso = ? OR hoten = ?");
+                        preparedStatement.setString (1,maSo.getText ());
+                        preparedStatement.setString (2,hoTen.getText ());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next ()) {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
+                            if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
+                                foundID.setVisible (true);
+                                foundID.setText ("The ID already existed, please type another");
+
+                            }
+                            if (hoTen.getText ().equals (resultSet.getString (2))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
+                                foundName.setVisible (true);
+                                foundName.setText ("The full name already existed, please type another");
+                            }
+                        }
+                        //Update
+                        else {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
+                            String insertSQL = "INSERT INTO NVCoHuu (maso, hoten, namsinh, hsl, lcs, giolamthem, luong, khenthuong, vitri) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                            PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
+                            PreparedStatement.setString (1, maSo.getText ());
+                            PreparedStatement.setString(2, hoTen.getText ());
+                            PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
+                            PreparedStatement.setDouble (5, Double.parseDouble (textField2.getText ()));
+                            PreparedStatement.setDouble (6, Double.parseDouble (textField3.getText ()));
+                            PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement.setDouble (8, Double.parseDouble (textField5.getText ()));
+                            PreparedStatement.setString (9,comboBox1.getItemAt (2).toString ());
+                            PreparedStatement.executeUpdate();
+                            String joinTableSQL = "INSERT INTO FullStaff (maso, hoten, namsinh, viTri, thuong, khenthuong) VALUES (?, ?, ?, ?, ?, ?) ";
+                            PreparedStatement PreparedStatement1 = connection.prepareStatement (joinTableSQL);
+                            PreparedStatement1.setString (1, maSo.getText ());
+                            PreparedStatement1.setString(2, hoTen.getText ());
+                            PreparedStatement1.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement1.setString (4,comboBox1.getItemAt (2).toString ());
+                            PreparedStatement1.setDouble (5, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement1.setDouble (6, Double.parseDouble (textField5.getText ()));
+                            PreparedStatement1.executeUpdate ();
+                            //reset to default page
+                            comboBox1.setSelectedIndex (0);
+                            namSinhLabel.setVisible (false);
+                            maSoLabel.setVisible (false);
+                            hoTenLabel.setVisible (false);
+                            label1.setVisible (false);
+                            label2.setVisible (false);
+                            label3.setVisible (false);
+                            label4.setVisible (false);
+                            label5.setVisible (false);
+                            maSo.setVisible (false);
+                            hoTen.setVisible (false);
+                            namSinh.setVisible (false);
+                            textField1.setVisible (false);
+                            textField2.setVisible (false);
+                            textField3.setVisible (false);
+                            textField4.setVisible (false);
+                            textField4.setEditable (false);
+                            textField5.setVisible (false);
+                            textField5.setEditable (false);
+                            saveDataButton.setVisible (false);
+                            clickToCalculateButton.setVisible (false);
+                            foundName.setVisible (false);
+                            foundID.setVisible (false);
+                            //reset all value to zero
+                            maSo.setText (null);
+                            hoTen.setText (null);
+                            namSinh.setText (null);
+                            textField1.setText (null);
+                            textField2.setText (null);
+                            textField3.setText (null);
+                            textField4.setText (null);
+                            textField5.setText (null);
+                        }
+                    }
+                    catch (SQLException E) {
+                        throw new RuntimeException (E);
+                    }
+                }
+                //3. giao vien thinh giang
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (3))) {
+                    foundID.setVisible (false);
+                    foundName.setVisible (false);
+                    try {
+
+                        //Connect to database
+                        Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+
+                        //Check similar maSo, hoTen
+                        PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM fullstaff WHERE maso = ? OR hoten = ?");
+                        preparedStatement.setString (1,maSo.getText ());
+                        preparedStatement.setString (2,hoTen.getText ());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next ()) {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
+                            if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
+                                foundID.setVisible (true);
+                                foundID.setText ("The ID already existed, please type another");
+
+                            }
+                            if (hoTen.getText ().equals (resultSet.getString (2))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
+                                foundName.setVisible (true);
+                                foundName.setText ("The full name already existed, please type another");
+                            }
+                        }
+                        //Update
+                        else {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
+                            String insertSQL = "INSERT INTO GVThinhGiang (maso, hoten, namsinh, mucluong, sotietgd, trinhdo, luong, vitri) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
+                            PreparedStatement.setString (1, maSo.getText ());
+                            PreparedStatement.setString(2, hoTen.getText ());
+                            PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
+                            PreparedStatement.setInt (5, Integer.parseInt (textField2.getText ()));
+                            PreparedStatement.setString (6, textField3.getText ());
+                            PreparedStatement.setDouble (7, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement.setString (8, comboBox1.getItemAt (3).toString ( ));
+                            PreparedStatement.executeUpdate();
+                            String joinTableSQL = "INSERT INTO FullStaff (maso, hoten, namsinh, viTri, thuong) VALUES (?, ?, ?, ?, ?) ";
+                            PreparedStatement PreparedStatement1 = connection.prepareStatement (joinTableSQL);
+                            PreparedStatement1.setString (1, maSo.getText ());
+                            PreparedStatement1.setString(2, hoTen.getText ());
+                            PreparedStatement1.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement1.setString (4, comboBox1.getItemAt (3).toString ( ));
+                            PreparedStatement1.setDouble (5, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement1.executeUpdate ();
+                            //reset to default page
+                            comboBox1.setSelectedIndex (0);
+                            namSinhLabel.setVisible (false);
+                            maSoLabel.setVisible (false);
+                            hoTenLabel.setVisible (false);
+                            label1.setVisible (false);
+                            label2.setVisible (false);
+                            label3.setVisible (false);
+                            label4.setVisible (false);
+                            label5.setVisible (false);
+                            maSo.setVisible (false);
+                            hoTen.setVisible (false);
+                            namSinh.setVisible (false);
+                            textField1.setVisible (false);
+                            textField2.setVisible (false);
+                            textField3.setVisible (false);
+                            textField4.setVisible (false);
+                            textField4.setEditable (false);
+                            textField5.setVisible (false);
+                            textField5.setVisible (false);
+                            saveDataButton.setVisible (false);
+                            clickToCalculateButton.setVisible (false);
+                            foundName.setVisible (false);
+                            foundID.setVisible (false);
+                            //reset all value to zero
+                            maSo.setText (null);
+                            hoTen.setText (null);
+                            namSinh.setText (null);
+                            textField1.setText (null);
+                            textField2.setText (null);
+                            textField3.setText (null);
+                            textField4.setText (null);
+                            textField5.setText (null);
+                        }
+                    }
+                    catch (SQLException E) {
+                        throw new RuntimeException (E);
+                    }
+                }
+                //4. nhan vien hop dong
+                else if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (4))) {
+                    foundID.setVisible (false);
+                    foundName.setVisible (false);
+                    try {
+
+                        //Connect to database
+                        Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+
+                        //Check similar maSo, hoTen
+                        PreparedStatement preparedStatement = connection.prepareStatement ("SELECT * FROM fullstaff WHERE maso = ? OR hoten = ?");
+                        preparedStatement.setString (1,maSo.getText ());
+                        preparedStatement.setString (2,hoTen.getText ());
+                        ResultSet resultSet = preparedStatement.executeQuery();
+                        if (resultSet.next ()) {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Please fix the error");
+                            if (maSo.getText ().equals (String.valueOf (resultSet.getInt (1)))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This ID already existed in our Database");
+                                foundID.setVisible (true);
+                                foundID.setText ("The ID already existed, please type another");
+
+                            }
+                            if (hoTen.getText ().equals (resultSet.getString (2))) {
+//                                        JOptionPane.showMessageDialog (selectEmployee.this,"This full name already existed in our Database");
+                                foundName.setVisible (true);
+                                foundName.setText ("The full name already existed, please type another");
+                            }
+                        }
+                        //Update
+                        else {
+                            JOptionPane.showMessageDialog (selectEmployee.this,"Updated to database");
+                            String insertSQL = "INSERT INTO NVHopDong (maso, hoten, namsinh, mucluong, ngaycong, luong, khenthuong, vitri) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                            PreparedStatement PreparedStatement = connection.prepareStatement(insertSQL);
+                            PreparedStatement.setString (1, maSo.getText ());
+                            PreparedStatement.setString(2, hoTen.getText ());
+                            PreparedStatement.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement.setDouble (4, Double.parseDouble (textField1.getText ()));
+                            PreparedStatement.setInt (5, Integer.parseInt (textField2.getText ()));
+                            PreparedStatement.setDouble (6, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement.setDouble (7, Double.parseDouble (textField5.getText ()));
+                            PreparedStatement.setString (8,comboBox1.getItemAt (4).toString ());
+                            PreparedStatement.executeUpdate();
+                            String joinTableSQL = "INSERT INTO FullStaff (maso, hoten, namsinh, viTri, thuong, khenthuong) VALUES (?, ?, ?, ?, ?, ?) ";
+                            PreparedStatement PreparedStatement1 = connection.prepareStatement (joinTableSQL);
+                            PreparedStatement1.setString (1, maSo.getText ());
+                            PreparedStatement1.setString(2, hoTen.getText ());
+                            PreparedStatement1.setInt (3, Integer.parseInt (namSinh.getText ()));
+                            PreparedStatement1.setString (4, comboBox1.getItemAt (4).toString ());
+                            PreparedStatement1.setDouble (5, Double.parseDouble (textField4.getText ()));
+                            PreparedStatement1.setDouble (6, Double.parseDouble (textField5.getText ()));
+                            PreparedStatement1.executeUpdate();
+                            //reset to default page
+                            comboBox1.setSelectedIndex (0);
+                            namSinhLabel.setVisible (false);
+                            maSoLabel.setVisible (false);
+                            hoTenLabel.setVisible (false);
+                            label1.setVisible (false);
+                            label2.setVisible (false);
+                            label3.setVisible (false);
+                            label4.setVisible (false);
+                            label5.setVisible (false);
+                            maSo.setVisible (false);
+                            hoTen.setVisible (false);
+                            namSinh.setVisible (false);
+                            textField1.setVisible (false);
+                            textField2.setVisible (false);
+                            textField3.setVisible (false);
+                            textField4.setVisible (false);
+                            textField5.setVisible (false);
+                            saveDataButton.setVisible (false);
+                            clickToCalculateButton.setVisible (false);
+                            foundName.setVisible (false);
+                            foundID.setVisible (false);
+                            //reset all value to zero
+                            maSo.setText (null);
+                            hoTen.setText (null);
+                            namSinh.setText (null);
+                            textField1.setText (null);
+                            textField2.setText (null);
+                            textField3.setText (null);
+                            textField4.setText (null);
+                            textField5.setText (null);
+                        }
+                    }
+                    catch (SQLException E) {
+                        throw new RuntimeException (E);
+                    }
+                }
+            }
+        });
+        exportToExcelButton.addActionListener (new ActionListener ( ) {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Connect to database
+                try {
+                    Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+                } catch (SQLException ex) {
+                    throw new RuntimeException (ex);
                 }
             }
         });
