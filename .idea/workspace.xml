@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a0d53c10-849f-492e-8f8c-97e3c32be5ec" name="Changes" comment="Build my Gui for salary management - ongoing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOP1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/OOP1.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/selectEmployee.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/selectEmployee.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/selectEmployee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/selectEmployee.java" afterDir="false" />
     </list>
@@ -48,25 +49,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
-    &quot;Application.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/Downloads/postgresql-42.7.3.jar&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/Users/duytran/IdeaProjects/OOP1/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;copyright&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Application.Main.executor": "Run",
+    "Application.Test.executor": "Run",
+    "Application.test.executor": "Run",
+    "Downloaded.Files.Path": "D:\\",
+    "Downloaded.Files.Path.Enabled": "true",
+    "Repository.Attach.Annotations": "true",
+    "Repository.Attach.JavaDocs": "true",
+    "Repository.Attach.Sources": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Admin/Downloads/poi-3.13-beta1/poi-scratchpad-3.13-beta1-20150723.jar",
+    "onboarding.tips.debug.path": "/Users/duytran/IdeaProjects/OOP1/src/Main.java",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "copyright"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.test">
     <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Test" />

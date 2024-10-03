@@ -1,8 +1,15 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import exercise1_32.*;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 
 public class selectEmployee extends JFrame {
     private JComboBox comboBox1;
@@ -28,7 +35,7 @@ public class selectEmployee extends JFrame {
     private JLabel label5;
     private JLabel foundID;
     private JLabel foundName;
-    private JButton exportToExcelButton;
+    private JButton excelExport;
 
 
     public selectEmployee() {
@@ -746,16 +753,75 @@ public class selectEmployee extends JFrame {
                 }
             }
         });
-        exportToExcelButton.addActionListener (new ActionListener ( ) {
+        excelExport.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 //Connect to database
                 try {
                     Connection connection = DriverManager.getConnection ("jdbc:postgresql://localhost:3008/NewDB","postgres","Liverpool3008@");
+                    String sql = "select * from fullstaff";
+                    Statement statement = connection.createStatement ();
+
+                    String exelPath = "D:\\Excel\\data.xls";
+                    ResultSet resultSet = statement.executeQuery (sql);
+                    Workbook workbook = new XSSFWorkbook ( );
+                    Sheet sheet = workbook.createSheet ("Employees");
+
+                    //write header line
+                    Row headerRow = sheet.createRow (0);
+
+                    Cell headerCell = headerRow.createCell (0);
+                    headerCell.setCellValue ("Ma So");
+
+                    headerCell = headerRow.createCell (1);
+                    headerCell.setCellValue ("Ho Ten");
+
+                    headerCell = headerRow.createCell (2);
+                    headerCell.setCellValue ("Nam Sinh");
+
+                    headerCell = headerRow.createCell (3);
+                    headerCell.setCellValue ("Vi Tri");
+
+                    headerCell = headerRow.createCell (4);
+                    headerCell.setCellValue ("Thuong");
+
+                    //write data line
+                    int rowCount = 1;
+
+                    while (resultSet.next ()){
+                        Row row = sheet.createRow (rowCount++);
+                        int columnCount = 0;
+
+                        Cell cell = row.createCell (columnCount++);
+                        cell.setCellValue (resultSet.getString ("maso"));
+
+                        cell = row.createCell (columnCount++);
+                        cell.setCellValue (resultSet.getString ("hoten"));
+
+                        cell = row.createCell (columnCount++);
+                        cell.setCellValue (resultSet.getString ("namsinh"));
+
+                        cell = row.createCell (columnCount++);
+                        cell.setCellValue (resultSet.getString ("vitri"));
+
+                        cell = row.createCell (columnCount++);
+                        cell.setCellValue (resultSet.getString ("thuong"));
+
+                    }
+
+                    try (FileOutputStream outputStream = new FileOutputStream (exelPath)) {
+                        workbook.write (outputStream);
+                        JOptionPane.showMessageDialog (selectEmployee.this,"Excel file exported successfully");
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog (selectEmployee.this,"Error exporting");
+                        throw new RuntimeException (ex);
+                    }
                 } catch (SQLException ex) {
                     throw new RuntimeException (ex);
                 }
             }
         });
+
     }
 }
