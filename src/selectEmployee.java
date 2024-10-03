@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import exercise1_32.*;
@@ -756,6 +757,11 @@ public class selectEmployee extends JFrame {
         excelExport.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser (  );
+                fileChooser.setFileSelectionMode (JFileChooser.DIRECTORIES_ONLY);
+                fileChooser.showDialog (selectEmployee.this,"Save file");
+                File selectedDirectory = fileChooser.getSelectedFile ();
+                String exelPath = selectedDirectory.getAbsolutePath () + File.separator + "data.xlsx";
 
                 //Connect to database
                 try {
@@ -763,7 +769,6 @@ public class selectEmployee extends JFrame {
                     String sql = "select * from fullstaff";
                     Statement statement = connection.createStatement ();
 
-                    String exelPath = "D:\\Excel\\data.xls";
                     ResultSet resultSet = statement.executeQuery (sql);
                     Workbook workbook = new XSSFWorkbook ( );
                     Sheet sheet = workbook.createSheet ("Employees");
