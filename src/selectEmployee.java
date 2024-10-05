@@ -72,7 +72,7 @@ public class selectEmployee extends JFrame {
         selectButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                excelExport.setVisible (false);
                 //select here
                 if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (0))) {
                     JOptionPane.showMessageDialog (selectEmployee.this,"Please select employee type");
@@ -97,7 +97,7 @@ public class selectEmployee extends JFrame {
                     textField5.setEditable (false);
                     saveDataButton.setVisible (false);
                     clickToCalculateButton.setVisible (false);
-
+                    excelExport.setVisible (true);
                 }
                 //1. giao vien co huu
                 else if(comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (1))) {
@@ -394,6 +394,7 @@ public class selectEmployee extends JFrame {
         saveDataButton.addActionListener (new ActionListener ( ) {
             @Override
             public void actionPerformed(ActionEvent e) {
+                excelExport.setVisible (true);
                 //1. giao vien co huu
                 if (comboBox1.getSelectedItem ().equals (comboBox1.getItemAt (1))) {
                     foundID.setVisible (false);
